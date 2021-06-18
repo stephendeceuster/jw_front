@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Header } from "../../../components/Header";
+import { Footer } from "../../../components/Footer";
 import styles from "../../../styles/Content.module.scss";
 
 export const getServerSideProps = async ({ params }) => {
@@ -11,13 +12,12 @@ export const getServerSideProps = async ({ params }) => {
   const images = [
     cas.contentImg1 || null,
     cas.contentImg2 || null,
-    cas.contentImg2 || null,
+    cas.contentImg3 || null,
     cas.contentImg4 || null,
     cas.contentImg5 || null,
     cas.contentImg6 || null,
-  ]
-    .filter((img) => img !== null)
-    .sort((a, b) => 0.5 - Math.random());
+  ].filter((img) => img !== null);
+
   console.log(images);
   // TODO : if not case or not published, return 404
   return {
@@ -29,9 +29,7 @@ export const getServerSideProps = async ({ params }) => {
 };
 
 const CaseView = ({ cas, images }) => {
-  const description = () => {
-    __html: cas.description;
-  };
+  const sizes = ['small', 'medium', 'large'];
   return (
     <>
       <Header />
@@ -41,16 +39,19 @@ const CaseView = ({ cas, images }) => {
       />
       <div className={styles.content}>
         <h1>{cas.title}</h1>
-        {cas.description && (
-          <div dangerouslySetInnerHTML={description()}></div>
-        )}
+        {cas.description && <div className={styles.description} dangerouslySetInnerHTML={{ __html:cas.description }}></div>}
         {images.length > 0 &&
-          images.map((img) => (
-            <div className={styles.content_box}>
-              <img src={`https://wdev2.be/stephen21/eindwerk/uploads/${img}`} />
-            </div>
-          ))}
+          images
+            .sort((a, b) => 0.5 - Math.random())
+            .map((img) => (
+              <div className={styles.content_box}>
+                <img
+                  src={`https://wdev2.be/stephen21/eindwerk/uploads/${img}`}
+                />
+              </div>
+            ))}
       </div>
+      <Footer />
     </>
   );
 };

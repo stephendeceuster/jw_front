@@ -1,0 +1,14 @@
+@use './base/variables' as *;
+
+.footer {
+    padding: $dubspc $dubspc 10rem;
+    display: flex;
+    color: $white;
+    background-color: $black;
+    ul li {
+        list-style: none;
+    }
+    div:first-of-type {
+        margin-right: auto;
+    }
+}

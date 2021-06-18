@@ -1,5 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
+import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import styles from "../../../styles/Content.module.scss";
 
@@ -43,6 +44,7 @@ const CategoryView = ({ category }) => {
             </Link>
           ))}
       </div>
+      <Footer />
     </>
   );
 };

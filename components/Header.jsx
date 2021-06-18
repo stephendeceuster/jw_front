@@ -5,14 +5,16 @@ export const Header = () => {
   return (
     <>
       <header className={styles.header}>
+        <Link href='/photo' passHref>
         <img className={styles.logo} src="/logo/JorneWellens-zwart.svg" />
+        </Link>
         <nav>
           <ul>
-            <li>
+            {/* <li>
               <Link href="/about">
                 <a>about</a>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/contact">
                 <a>contact</a>

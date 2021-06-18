@@ -1,7 +1,6 @@
 @use './base/variables' as *;
 
 .hero {
-  margin-top: $dubspc;
   width: 100%;
 }
 
@@ -16,7 +15,7 @@
 }
 
 .content_box {
-  width: 70%;
+  width: 60%;
   max-width: 60rem;
   margin-bottom: $dubspc * 2;
 
@@ -28,3 +27,21 @@
       margin-top: -$spc2;
   }
 }
+.content_box_small {
+  width: 40%;
+}
+.content_box_medium {
+  width: 60%;
+}
+.content_box_large {
+  width: 80%;
+}
+
+.intro {
+  margin-bottom: $dubspc * 2;
+}
+
+.description {
+  margin-bottom: $dubspc;
+}
+

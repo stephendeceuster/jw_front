@@ -3,6 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import { Header } from "../../components/Header";
 import styles from "../../styles/Content.module.scss";
+import { Footer } from "../../components/Footer";
 
 export const getServerSideProps = async () => {
   const resp = await axios.get(
@@ -19,14 +20,13 @@ export const getServerSideProps = async () => {
 };
 
 const PhotoIndex = ({ categories }) => {
-  console.log("categories", categories);
   return (
     <>
       <Header />
       <div className={styles.content}>
         <h1 className={styles.overview_heading}>Photo</h1>
-        <p>
-          “A good snapshot keeps a moment that s gone from running away.”
+        <p className={styles.intro}>
+          “A good snapshot keeps a moment that's gone from running away.”
           <br />– Eudora Welty
         </p>
         
@@ -44,6 +44,7 @@ const PhotoIndex = ({ categories }) => {
             </Link>
           ))}
       </div>
+      <Footer />
     </>
   );
 };
