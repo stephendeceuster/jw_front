@@ -1,0 +1,30 @@
+@use './base/variables' as *;
+
+.contact_form {
+    display: flex;
+    flex-direction: column;
+    padding: $dubspc * 2;
+    label {
+        font-weight: 700;
+        margin-top: $spc;
+        margin-bottom: $spc2;
+        margin-left: $spc;
+    }
+    input,
+    textarea {
+        padding: $spc2 $spc;
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size: 1rem;
+        margin-bottom: $spc;
+    }
+    button {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-weight: 700;
+        padding: $spc;
+        margin-top: $spc;
+        font-size: 1rem;
+        color: $white;
+        background-color: $black;
+        border: 1px solid $black;
+    }
+}

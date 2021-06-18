@@ -1,0 +1,34 @@
+@use './base/variables' as *;
+
+.header {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    color: $black;
+    img.logo{
+        width: 12rem;
+        margin-right: auto;
+        margin-top: -1rem;
+        margin-bottom: -3.5rem;
+    }
+    nav ul {
+        display: flex;
+        li {
+            margin-right: $dubspc;
+            list-style: none;
+            font-weight: 300;
+            a {
+                padding: $spc2;
+                text-decoration: none;
+                transition: 500ms ease;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

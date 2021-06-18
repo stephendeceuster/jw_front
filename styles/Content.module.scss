@@ -1,0 +1,30 @@
+@use './base/variables' as *;
+
+.hero {
+  margin-top: $dubspc;
+  width: 100%;
+}
+
+.content {
+  padding: $dubspc;
+  display: flex;
+  flex-direction: column;
+}
+
+.overview_heading {
+  margin-top: 10rem;
+}
+
+.content_box {
+  width: 70%;
+  max-width: 60rem;
+  margin-bottom: $dubspc * 2;
+
+  &:nth-of-type(odd) {
+    align-self: flex-end;
+  }
+
+  h3 {
+      margin-top: -$spc2;
+  }
+}
