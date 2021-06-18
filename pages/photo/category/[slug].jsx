@@ -31,7 +31,7 @@ const CategoryView = ({ category }) => {
       />
       <div className={styles.content}>
         <h1>{category.title}</h1>
-        {category.description && category.description}
+        {category.description && <div className={styles.description} dangerouslySetInnerHTML={{ __html:category.description }}></div>}
         {cases.length > 0 &&
           cases.map((c) => (
             <Link key={c.slug} href={`/photo/case/${c.slug}`} passHref>
