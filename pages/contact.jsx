@@ -7,12 +7,10 @@ import { Footer } from "../components/Footer";
 const Contact = (props) => {
   return (
     <>
-      <Header />
       <div className={styles.content}>
-      <h1>Contact</h1>
+        <h1>Contact</h1>
         <ContactForm />
       </div>
-      <Footer />
     </>
   );
 };

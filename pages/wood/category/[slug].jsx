@@ -7,7 +7,7 @@ import styles from "../../../styles/Content.module.scss";
 export const getServerSideProps = async ({ params }) => {
   const { slug } = params;
   const resp = await axios.get(
-    `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json?slug=${slug}`
+    `https://wdev2.be/stephen21/eindwerk/api/wood_categories.json?slug=${slug}`
   );
   const [category] = resp.data;
   // TODO : if not category or not published, return 404
@@ -19,12 +19,14 @@ export const getServerSideProps = async ({ params }) => {
   };
 };
 
-const PhotoCategoryView = (props) => {
-  const { category, setLastPhotoPage } = props;
+const WoodCategoryView = (props) => {
+  const { category, setLastWoodPage } = props;
+
   const router = useRouter();
-  setLastPhotoPage(router.asPath);
+  setLastWoodPage(router.asPath);
   // TODO : filter on serverside
-  const cases = category.photoCases.filter((c) => c.published);
+  const cases = category.woodCasesCategories.filter((c) => c.published) || [];
+  console.log(cases);
 
   return (
     <>
@@ -43,7 +45,7 @@ const PhotoCategoryView = (props) => {
         {cases.length > 0 &&
           cases.map((c) => (
             <div key={c.slug} className={styles.content_box}>
-              <Link href={`/photo/case/${c.slug}`} passHref>
+              <Link href={`/wood/case/${c.slug}`} passHref>
                 <a>
                   <div className={styles.image_wrap}>
                     <Image
@@ -53,7 +55,7 @@ const PhotoCategoryView = (props) => {
                   </div>
                 </a>
               </Link>{" "}
-              <Link href={`/photo/case/${c.slug}`} passHref>
+              <Link href={`/wood/case/${c.slug}`} passHref>
                 <a>
                   <h3>{c.title}</h3>
                 </a>
@@ -65,4 +67,4 @@ const PhotoCategoryView = (props) => {
   );
 };
 
-export default PhotoCategoryView;
+export default WoodCategoryView;

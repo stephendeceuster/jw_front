@@ -1,34 +1,36 @@
 @use './base/variables' as *;
 
 .header {
-    // position: absolute;
-    width: 100%;
-    padding: $spc $dubspc;
+  // position: absolute;
+  width: 100%;
+  padding: $spc $dubspc;
+  display: flex;
+  align-items: center;
+  background-color: $white;
+  color: $black;
+  > a {
+    margin-right: auto;
+    margin-bottom: -$spc4;
+    img.logo {
+      width: 8rem;
+    }
+  }
+  nav ul {
     display: flex;
-    align-items: center;
-    background-color: $white;
-    color: $black;
-    img.logo{
-        width: 8rem;
-        margin-right: auto;
-        margin-bottom: - $spc4;
-    }
-    nav ul {
-        display: flex;
-        margin-top: -$spc2;
-        li {
-            margin-left: $dubspc;
-            list-style: none;
-            font-weight: 300;
-            font-size: 1.1rem;
-            a {
-                padding: $spc2;
-                text-decoration: none;
-                transition: 500ms ease;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
+    margin-top: -$spc4;
+    li {
+      margin-left: $dubspc;
+      list-style: none;
+      font-weight: 300;
+      font-size: 1.1rem;
+      a {
+        padding: $spc2;
+        text-decoration: none;
+        transition: 500ms ease;
+        &:hover {
+          text-decoration: underline;
         }
+      }
     }
+  }
 }

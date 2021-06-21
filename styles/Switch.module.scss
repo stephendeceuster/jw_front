@@ -1,0 +1,14 @@
+@use './base/variables' as *;
+
+.switch_div {
+  padding: $spc $dubspc;
+  background-color: $yellow;
+  a {
+    transition: all 500ms ease;
+
+    &:hover {
+      text-decoration: underline;
+      margin-left: $spc;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use './base/variables' as *;
+
+.back_button_div {
+  padding: $dubspc;
+  p {
+    transition: all 500ms ease;
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      margin-left: $spc;
+    }
+  }
+}

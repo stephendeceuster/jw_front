@@ -5,8 +5,10 @@ export const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <Link href='/photo' passHref>
-        <img className={styles.logo} src="/logo/JorneWellens-zwart.svg" />
+        <Link href="/" passHref>
+          <a>
+            <img className={styles.logo} src="/logo/JorneWellens-zwart.svg" />
+          </a>
         </Link>
         <nav>
           <ul>
@@ -15,6 +17,16 @@ export const Header = () => {
                 <a>about</a>
               </Link>
             </li> */}
+            <li>
+              <Link href="/photo">
+                <a>fotografie</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/wood">
+                <a>houtbewerking</a>
+              </Link>
+            </li>
             <li>
               <Link href="/contact">
                 <a>contact</a>

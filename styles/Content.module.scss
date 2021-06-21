@@ -2,6 +2,8 @@
 
 .hero {
   width: 100%;
+  aspect-ratio: 9/6;
+  position: relative;
 }
 
 .content {
@@ -11,13 +13,15 @@
 }
 
 .overview_heading {
-  margin-top: 10rem;
+  margin-top: $dubspc * 2;
 }
 
 .content_box {
   width: 60%;
+  height: auto;
   max-width: 60rem;
   margin-bottom: $dubspc * 2;
+  position: relative;
 
   &:nth-of-type(odd) {
     align-self: flex-end;
@@ -30,12 +34,16 @@
   }
 
   h3 {
-      margin-top: -$spc2;
+      margin-top: 0;
+      display: inline-block;
+      padding: $spc4;
   }
 }
 
 .image_wrap {
   width: 100%;
+  aspect-ratio: 9/6;
+  position: relative;
 }
 
 .intro {

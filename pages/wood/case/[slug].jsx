@@ -6,7 +6,7 @@ import styles from "../../../styles/Content.module.scss";
 export const getServerSideProps = async ({ params }) => {
   const { slug } = params;
   const resp = await axios.get(
-    `https://wdev2.be/stephen21/eindwerk/api/photo_cases.json?slug=${slug}`
+    `https://wdev2.be/stephen21/eindwerk/api/wood_cases.json?slug=${slug}`
   );
   const [cas] = resp.data;
   const images = [
@@ -28,10 +28,10 @@ export const getServerSideProps = async ({ params }) => {
   };
 };
 
-const PhotoCaseView = ( props ) => {
-  const { cas, images, setLastPhotoPage } = props;
+const WoodCaseView = ( props ) => {
+  const { cas, images, setLastWoodPage } = props;
   const router = useRouter();
-  setLastPhotoPage(router.asPath);
+  setWoodPhotoPage(router.asPath);
   return (
     <>
       <div className={styles.hero}>
@@ -59,4 +59,4 @@ const PhotoCaseView = ( props ) => {
   );
 };
 
-export default PhotoCaseView;
+export default WoodCaseView;

@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react';
-import '../styles/globals.scss'
+import { useState, useEffect } from "react";
+import { BackButton } from "../components/BackButton";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
+import { Switch } from "../components/Switch";
+import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
-  const [test, setTest] = useState(true);
-  useEffect(() => {
-    console.log(Date.now());
-    return () => {
-      console.log('1');
-    }
-  }, [test])
-  return <Component {...pageProps} />
+  const [lastWoodPage, setLastWoodPage] = useState("/wood");
+  const [lastPhotoPage, setLastPhotoPage] = useState("/photo");
+
+  return (
+    <>
+      <Switch lastPhotoPage={lastPhotoPage} lastWoodPage={lastWoodPage}/>
+      <Header />
+      <Component {...pageProps} setLastPhotoPage={setLastPhotoPage} setLastWoodPage={setLastWoodPage}/>
+      <BackButton />
+      <Footer />
+    </>
+  );
 }
 
-
-export default MyApp
+export default MyApp;

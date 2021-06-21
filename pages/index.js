@@ -1,16 +1,12 @@
 import { useEffect } from 'react'
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 
-const Home = () => {
-  const router = useRouter();
-  
-  useEffect(() => {
-    if ( true ) {
-      router.push('/photo')
-    }
-  }, [])
-  return <p>redirecting...</p>;
+const Home = (props) => {
+  console.log(props);
+  return (
+  <><Link href="/photo"><a>Fotografie</a></Link><br/><Link href="/wood"><a>Houtbewerking</a></Link></>);
 };
 
 export default Home;
