@@ -10,8 +10,8 @@ export const getServerSideProps = async () => {
     "https://wdev2.be/stephen21/eindwerk/api/photo_categories.json"
   );
 
-  const categories = resp.data;
-
+  const allCategories = resp.data;
+  const categories = allCategories.filter(cat => cat.published);
   return {
     props: {
       categories,
@@ -35,10 +35,12 @@ const PhotoIndex = ({ categories }) => {
           .map((cat) => (
             <Link key={cat.slug} href={`/photo/category/${cat.slug}`} passHref>
               <div className={styles.content_box}>
+                <div className={styles.image_wrap}>
                 <img
                   layout="fill"
                   src={`https://wdev2.be/stephen21/eindwerk/uploads/${cat.thumbnail}`}
                 />
+                </div>
                 <h3>{cat.title}</h3>
               </div>
             </Link>

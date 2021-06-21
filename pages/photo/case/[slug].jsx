@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import styles from "../../../styles/Content.module.scss";
@@ -29,14 +30,16 @@ export const getServerSideProps = async ({ params }) => {
 };
 
 const CaseView = ({ cas, images }) => {
-  const sizes = ['small', 'medium', 'large'];
+  
   return (
     <>
       <Header />
+      <div className={styles.hero}>
       <img
-        className={styles.hero}
+        layout="fill"
         src={`https://wdev2.be/stephen21/eindwerk/uploads/${cas.thumbnail}`}
       />
+      </div>
       <div className={styles.content}>
         <h1>{cas.title}</h1>
         {cas.description && <div className={styles.description} dangerouslySetInnerHTML={{ __html:cas.description }}></div>}
@@ -44,8 +47,9 @@ const CaseView = ({ cas, images }) => {
           images
             .sort((a, b) => 0.5 - Math.random())
             .map((img) => (
-              <div className={styles.content_box}>
-                <img
+              <div key={img} className={styles.content_box}>
+                <Image
+                  layout="fill"
                   src={`https://wdev2.be/stephen21/eindwerk/uploads/${img}`}
                 />
               </div>
