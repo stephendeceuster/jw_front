@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { motion } from "framer-motion";
 import styles from "../../styles/Content.module.scss";
-
 
 export const getServerSideProps = async () => {
   const resp = await axios.get(
@@ -19,17 +19,29 @@ export const getServerSideProps = async () => {
   };
 };
 
-const PhotoIndex = ( props ) => {
+const PhotoIndex = (props) => {
   const { categories, setLastPhotoPage } = props;
   const router = useRouter();
   setLastPhotoPage(router.asPath);
   return (
     <div className={styles.content}>
-      <h1 className={styles.overview_heading}>Fotografie</h1>
-      <p className={styles.intro}>
+      <motion.h1
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className={styles.overview_heading}
+      >
+        Fotografie
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className={styles.intro}
+      >
         “A good snapshot keeps a moment that's gone from running away.”
         <br />– Eudora Welty
-      </p>
+      </motion.p>
 
       {categories
         .sort((a, b) => a.sorting - b.sorting)
@@ -37,12 +49,15 @@ const PhotoIndex = ( props ) => {
           <div className={styles.content_box} key={cat.slug}>
             <Link href={`/photo/category/${cat.slug}`} passHref>
               <a>
-                <div className={styles.image_wrap}>
+                <motion.figure
+                  className={styles.image_wrap}
+                  layoutId={cat.slug}
+                >
                   <Image
                     layout="fill"
                     src={`https://wdev2.be/stephen21/eindwerk/uploads/${cat.thumbnail}`}
                   />
-                </div>
+                </motion.figure>
               </a>
             </Link>
             <Link href={`/photo/category/${cat.slug}`} passHref>

@@ -2,6 +2,8 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import { BackButton } from "../../../components/BackButton";
 import styles from "../../../styles/Content.module.scss";
 
 export const getServerSideProps = async ({ params }) => {
@@ -28,12 +30,13 @@ const PhotoCategoryView = (props) => {
 
   return (
     <>
-      <div className={styles.hero}>
+      <motion.figure className={styles.hero} layoutId={category.slug}>
         <Image
           layout="fill"
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${category.thumbnail}`}
         />
-      </div>
+      </motion.figure>
+      <BackButton />
       <div className={styles.content}>
         <h1>{category.title}</h1>
         {/* {category.description && <div className={styles.description} dangerouslySetInnerHTML={{ __html:category.description }}></div>} */}
@@ -45,12 +48,12 @@ const PhotoCategoryView = (props) => {
             <div key={c.slug} className={styles.content_box}>
               <Link href={`/photo/case/${c.slug}`} passHref>
                 <a>
-                  <div className={styles.image_wrap}>
+                  <motion.figure className={styles.image_wrap} layoutId={c.slug}>
                     <Image
                       layout="fill"
                       src={`https://wdev2.be/stephen21/eindwerk/uploads/${c.thumbnail}`}
                     />
-                  </div>
+                  </motion.figure>
                 </a>
               </Link>{" "}
               <Link href={`/photo/case/${c.slug}`} passHref>

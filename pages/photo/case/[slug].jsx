@@ -1,6 +1,8 @@
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import { BackButton } from "../../../components/BackButton";
 import styles from "../../../styles/Content.module.scss";
 
 export const getServerSideProps = async ({ params }) => {
@@ -18,7 +20,7 @@ export const getServerSideProps = async ({ params }) => {
     cas.contentImg6 || null,
   ].filter((img) => img !== null);
 
-  console.log(images);
+  
   // TODO : if not case or not published, return 404
   return {
     props: {
@@ -34,12 +36,13 @@ const PhotoCaseView = ( props ) => {
   setLastPhotoPage(router.asPath);
   return (
     <>
-      <div className={styles.hero}>
+      <motion.figure className={styles.hero} layoutId={cas.slug}>
         <Image
           layout="fill"
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${cas.thumbnail}`}
         />
-      </div>
+      </motion.figure>
+      <BackButton />
       <div className={styles.content}>
         <h1>{cas.title}</h1>
         {cas.description && <div className={styles.description}>{cas.description}</div>}

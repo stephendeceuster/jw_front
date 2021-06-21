@@ -4,10 +4,11 @@
   width: 100%;
   aspect-ratio: 9/6;
   position: relative;
+  margin: 0;
 }
 
 .content {
-  padding: $dubspc;
+  padding: 0 $dubspc;
   display: flex;
   flex-direction: column;
 }
@@ -44,6 +45,7 @@
   width: 100%;
   aspect-ratio: 9/6;
   position: relative;
+  margin: 0;
 }
 
 .intro {
