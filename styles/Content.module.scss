@@ -52,6 +52,18 @@
   }
 }
 
+@media screen and (max-width: 35em) {
+  .content_box {
+    width: 85%;
+    &:nth-of-type(3n + 1) {
+      width: 95%;
+    }
+    &:nth-of-type(3n) {
+      width: 75%;
+    }
+  }
+}
+
 .image_wrap {
   width: 100%;
   aspect-ratio: 9/6;
