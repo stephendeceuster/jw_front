@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 import styles from "../../styles/Content.module.scss";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const resp = await axios.get(
     "https://wdev2.be/stephen21/eindwerk/api/wood_categories.json"
   );
@@ -17,6 +17,7 @@ export const getServerSideProps = async () => {
     props: {
       categories,
     },
+    revalidate: 10, // 10 seconds TODO : Bump this up.
   };
 };
 

@@ -12,14 +12,12 @@ export const getStaticProps = async ({ params }) => {
     `https://wdev2.be/stephen21/eindwerk/api/wood_categories.json?slug=${slug}`
   );
   const [category] = resp.data;
-  // TODO : if not category or not published, return 404
+  
   if ( !category || !category.published ) {
     return {
       notFound: true,
     };
   }
-
-  
 
   return {
     props: {
