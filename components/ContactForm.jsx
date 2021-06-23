@@ -29,8 +29,8 @@ export const ContactForm = () => {
 
   const postHandler = async( values ) => {
       
-    const resp = await axios.post('/api/contact', { values });
-    
+    const resp = await axios.post('/api/contactHandler', { values });
+    console.log('resp in form', resp);
   };
 
   return (<Formik
