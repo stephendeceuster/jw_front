@@ -37,10 +37,11 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-const getStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/photo_cases.json`
   );
+  console.log('resp', resp)
   const cases = resp.data.filter((cas) => cas.published);
   const paths = cases.map((cas) => ({
     params: { slug: cas.slug },

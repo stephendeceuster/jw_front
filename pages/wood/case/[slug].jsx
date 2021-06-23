@@ -36,7 +36,7 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-const getStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/wood_cases.json`
   );

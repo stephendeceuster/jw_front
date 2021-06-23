@@ -19,20 +19,6 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
-  export const getStaticPaths = async () => {
-    const resp = await axios.get(
-      `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json`
-    );
-    const categories = resp.data.filter(cat => cat.published);
-    const paths = categories.map(cat => ({
-      params: { slug : cat.slug }
-    }))
-    return {
-      paths,
-      fallback: 'blocking', 
-    };
-  }
-
   return {
     props: {
       category,
@@ -40,6 +26,20 @@ export const getStaticProps = async ({ params }) => {
     revalidate: 10, // 10 seconds TODO : Bump this up.
   };
 };
+
+export const getStaticPaths = async () => {
+  const resp = await axios.get(
+    `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json`
+  );
+  const categories = resp.data.filter(cat => cat.published);
+  const paths = categories.map(cat => ({
+    params: { slug : cat.slug }
+  }))
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
 
 const PhotoCategoryView = (props) => {
   const { category, setLastPhotoPage } = props;
