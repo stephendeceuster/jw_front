@@ -1,12 +1,14 @@
-import axios from "axios";
-import { Formik, Field, Form } from "formik";
 import { useState } from "react";
+import axios from "axios";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
+import { motion } from "framer-motion";
 import styles from "../styles/Form.module.scss";
+import { disable } from "debug";
 
 export const ContactForm = () => {
-    let showErrorMessage = false;
-    const [errorMessage, setErrorMessage] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const initialValues = {
     fullName: "",
@@ -27,29 +29,68 @@ export const ContactForm = () => {
     message: yup.string(),
   });
 
-  const postHandler = async( values ) => {
-      
-    const resp = await axios.post('/api/contactHandler', { values });
-    console.log('resp in form', resp);
+  const postHandler = async (values, actions) => {
+    // make call to api for posting form-input
+    const resp = await axios.post("/api/contactHandler", { values });
+    // if status is 200 show Success else showError
+    resp.status === 200 ? setShowSuccess(true) : setShowError(true);
+    // reset form to emptyState
+    actions.resetForm();
   };
 
-  return (<Formik
-    enableReinitialize
-    initialValues={initialValues}
-    validationSchema={yupValidate}
-    onSubmit={postHandler}
-  >{(props) => {
-    return (
-    <Form className={styles.contact_form}>
-      <label htmlFor="fullName">Name</label>
-      <Field id="fullName" name="fullName" />
-     
-      <label htmlFor="email">Email</label>
-      <Field id="email" name="email" type="email" />
-      
-      <label htmlFor="message">Message</label>
-      <Field as="textarea" id="message" name="message" />
-      <button type="submit">Send</button>
-    </Form>)}}
-  </Formik>);
+  return (
+    <>
+      {showSuccess && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className={styles.success}
+        >
+          Dank je voor je bericht, ik neem zo snel mogelijk contact met je op.
+        </motion.div>
+      )}
+      {showError && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className={styles.error}
+        >
+          Er is iets misgelopen, probeer later nog eens of stuur een mail naar
+          jornewellens@gmail.com
+        </motion.div>
+      )}
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        validationSchema={yupValidate}
+        onSubmit={postHandler}
+      >
+        {(props) => {
+          console.log("formprops", props);
+          return (
+            <Form className={styles.contact_form}>
+              <label htmlFor="fullName">Name</label>
+              <Field id="fullName" name="fullName" />
+              <ErrorMessage
+                component="div"
+                className={styles.form_error}
+                name="fullName"
+              />
+
+              <label htmlFor="email">Email</label>
+              <Field id="email" name="email" type="email" />
+
+              <label htmlFor="message">Message</label>
+              <Field as="textarea" id="message" name="message" />
+              <button type="submit" disable={showError ? true : false}>
+                Send
+              </button>
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
+  );
 };

@@ -8,6 +8,7 @@ const contactHandler = async (req, res) => {
   }
 
   const { fullName, email, message } = req.body.values;
+  // TODO : sanitize
   const respDB = await axios.post(
     "https://wdev2.be/stephen21/eindwerk/api/contact_forms.json",
     {
@@ -17,9 +18,9 @@ const contactHandler = async (req, res) => {
     }
   );
   const respSG = await sendMail( fullName, email, message );
-  //console.log('respDB', respDB);
+  
   console.log('respSG', respSG);
-  return res.status(200).json({ message: "Jodela" });
+  return res.status(200).json({ message: "email send" });
 };
 
 export default contactHandler;

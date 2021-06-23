@@ -1,38 +1,44 @@
 @use './base/variables' as *;
 
-
 .splash_wrapper {
   display: flex;
 }
-.photo_splash {
-  background-image: url('/images/foto.jpg');
-  width: 50%;
-  height: calc(100vh - 10rem);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  a {
-      transition: all 500ms ease;
-      color: $yellow;
-      text-shadow: 2px 2px 4px $black;
-      &:hover {
-        transform: scale(1.05);
-      }
-  }
-}
+
+.photo_splash,
 .wood_splash {
-  background-image: url('/images/hout.jpg');
   width: 50%;
   height: calc(100vh - 10rem);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
   a {
+    font-weight: 300;
     transition: all 500ms ease;
     color: $yellow;
     text-shadow: 2px 2px 4px $black;
     &:hover {
-        transform: scale(1.05);
+      transform: scale(1.05);
     }
+  }
 }
+.photo_splash {
+  background-image: url("/images/foto.jpg");
+}
+.wood_splash {
+  background-image: url("/images/hout.jpg");
+}
+
+@media screen and (max-width: 35em) {
+  .splash_wrapper {
+    flex-direction: column;
+  }
+  .photo_splash,
+  .wood_splash {
+    width: 100%;
+    height: 20rem;
+  }
 }
