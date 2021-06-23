@@ -16,12 +16,14 @@
   background-size: cover;
   
   a {
-    font-weight: 300;
     transition: all 500ms ease;
     color: $yellow;
     text-shadow: 2px 2px 4px $black;
     &:hover {
       transform: scale(1.05);
+    }
+    h2 {
+      font-weight: 300;
     }
   }
 }
@@ -32,7 +34,7 @@
   background-image: url("/images/hout.jpg");
 }
 
-@media screen and (max-width: 35em) {
+@media screen and (max-width: 38em) {
   .splash_wrapper {
     flex-direction: column;
   }
