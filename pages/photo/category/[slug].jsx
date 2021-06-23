@@ -6,18 +6,38 @@ import { motion } from "framer-motion";
 import { BackButton } from "../../../components/BackButton";
 import styles from "../../../styles/Content.module.scss";
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const { slug } = params;
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json?slug=${slug}`
   );
   const [category] = resp.data;
-  // TODO : if not category or not published, return 404
+  
+  if ( !category || !category.published ) {
+    return {
+      notFound: true,
+    };
+  }
+
+  export const getStaticPaths = async () => {
+    const resp = await axios.get(
+      `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json`
+    );
+    const categories = resp.data.filter(cat => cat.published);
+    const paths = categories.map(cat => ({
+      params: { slug : cat.slug }
+    }))
+    return {
+      paths,
+      fallback: 'blocking', 
+    };
+  }
 
   return {
     props: {
       category,
     },
+    revalidate: 10, // 10 seconds TODO : Bump this up.
   };
 };
 

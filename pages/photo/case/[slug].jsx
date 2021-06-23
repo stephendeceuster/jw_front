@@ -5,12 +5,19 @@ import { motion } from "framer-motion";
 import { BackButton } from "../../../components/BackButton";
 import styles from "../../../styles/Content.module.scss";
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const { slug } = params;
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/photo_cases.json?slug=${slug}`
   );
   const [cas] = resp.data;
+
+  if (!cas || !cas.published) {
+    return {
+      notFound: true,
+    };
+  }
+
   const images = [
     cas.contentImg1 || null,
     cas.contentImg2 || null,
@@ -20,17 +27,31 @@ export const getServerSideProps = async ({ params }) => {
     cas.contentImg6 || null,
   ].filter((img) => img !== null);
 
-  
   // TODO : if not case or not published, return 404
   return {
     props: {
       cas,
       images,
     },
+    revalidate: 10,
   };
 };
 
-const PhotoCaseView = ( props ) => {
+const getStaticPaths = async () => {
+  const resp = await axios.get(
+    `https://wdev2.be/stephen21/eindwerk/api/photo_cases.json`
+  );
+  const cases = resp.data.filter((cas) => cas.published);
+  const paths = cases.map((cas) => ({
+    params: { slug: cas.slug },
+  }));
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
+
+const PhotoCaseView = (props) => {
   const { cas, images, setLastPhotoPage } = props;
   const router = useRouter();
   setLastPhotoPage(router.asPath);
@@ -45,7 +66,9 @@ const PhotoCaseView = ( props ) => {
       <BackButton />
       <div className={styles.content}>
         <h1>{cas.title}</h1>
-        {cas.description && <div className={styles.description}>{cas.description}</div>}
+        {cas.description && (
+          <div className={styles.description}>{cas.description}</div>
+        )}
         {images.length > 0 &&
           images
             .sort((a, b) => 0.5 - Math.random())
