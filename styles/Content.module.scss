@@ -80,12 +80,12 @@
     height: calc(100% - 2rem);
     border: 2px solid $yellow;
   }
-  img {
-    transition: all 500ms ease;
-  }
-  &:hover img {
-    transform: scale(1.1);
-  }
+  // img {
+  //   transition: all 500ms ease;
+  // }
+  // &:hover img {
+  //   transform: scale(1.1);
+  // }
 }
 
 .intro {

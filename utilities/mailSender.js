@@ -17,7 +17,5 @@ export const sendMail = async (fullName, email, message) => {
     html: msg.replace(/\r\n/g, "<br>"),
   });
 
-  console.log('resp in mailSender', resp);
-
   return {message: "send"};
 };

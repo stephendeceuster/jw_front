@@ -3,8 +3,8 @@ import { sendMail } from "../../utilities/mailSender";
 
 const contactHandler = async (req, res) => {
   if (req.method !== "POST") {
-    // TODO: check right errorcode
-    return res.status(404).json({ message: "not the right method" });
+    
+    return res.status(405).json({ message: "not the right method" });
   }
 
   const { fullName, email, message } = req.body.values;
@@ -18,8 +18,7 @@ const contactHandler = async (req, res) => {
     }
   );
   const respSG = await sendMail( fullName, email, message );
-  
-  console.log('respSG', respSG);
+
   return res.status(200).json({ message: "email send" });
 };
 

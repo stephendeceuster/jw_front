@@ -68,7 +68,7 @@ export const ContactForm = () => {
         onSubmit={postHandler}
       >
         {(props) => {
-          console.log("formprops", props);
+        
           return (
             <Form className={styles.contact_form}>
               <label htmlFor="fullName">Name</label>
@@ -81,10 +81,21 @@ export const ContactForm = () => {
 
               <label htmlFor="email">Email</label>
               <Field id="email" name="email" type="email" />
+              <ErrorMessage
+                component="div"
+                className={styles.form_error}
+                name="email"
+              />
 
               <label htmlFor="message">Message</label>
               <Field as="textarea" id="message" name="message" />
-              <button type="submit" disable={showError ? true : false}>
+              <ErrorMessage
+                component="div"
+                className={styles.form_error}
+                name="message"
+              />
+
+              <button type="submit" disable={showError ? "true" : "false"}>
                 Send
               </button>
             </Form>
