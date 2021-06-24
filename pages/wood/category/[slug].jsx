@@ -130,7 +130,9 @@ const WoodCategoryView = (props) => {
               </Link>{" "}
               <Link href={`/wood/case/${c.slug}`} passHref>
                 <a>
-                  <h3>{c.title}</h3>
+                  <h3>
+                    <span>{c.title}</span>
+                  </h3>
                 </a>
               </Link>
             </div>

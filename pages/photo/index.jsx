@@ -18,7 +18,7 @@ export const getStaticProps = async () => {
     props: {
       categories,
     },
-    revalidate: 3600, 
+    revalidate: 3600,
   };
 };
 
@@ -114,7 +114,9 @@ const PhotoIndex = (props) => {
               </Link>
               <Link href={`/photo/category/${cat.slug}`} passHref>
                 <a>
-                  <h3>{cat.title}</h3>
+                  <h3>
+                    <span>{cat.title}</span>
+                  </h3>
                 </a>
               </Link>
             </div>
