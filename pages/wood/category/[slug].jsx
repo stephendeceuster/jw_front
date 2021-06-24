@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import axios from "axios";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,9 +21,12 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
+  const cases = category.woodCasesCategories.filter((c) => c.published) || [];
+
   return {
     props: {
       category,
+      cases,
     },
     revalidate: 10, // 10 seconds TODO : Bump this up.
   };
@@ -42,19 +47,30 @@ export const getStaticPaths = async () => {
 }
 
 const WoodCategoryView = (props) => {
-  const { category, setLastWoodPage } = props;
+  const { category, cases, setLastWoodPage } = props;
 
   const router = useRouter();
-  setLastWoodPage(router.asPath);
-  // TODO : filter on serverside
-  const cases = category.woodCasesCategories.filter((c) => c.published) || [];
+  useEffect(() => {
+    setLastWoodPage(router.asPath);
+  }, [])
+  
  
-
   return (
     <>
+    <Head>
+        <title>{category.title} Jorne Wellens | houtbewerking</title>
+        <meta
+          name="description"
+          content={category.description}
+        />
+        <link rel="canonical" href={`https://jw-front.vercel.app/${router.asPath}`} />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+      </Head>
       <motion.figure className={styles.hero} layoutId={category.slug}>
         <Image
           layout="fill"
+          alt={`${category.title} | Jorne Wellens`}
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${category.thumbnail}`}
         />
       </motion.figure>
@@ -73,6 +89,7 @@ const WoodCategoryView = (props) => {
                   <motion.figure className={styles.image_wrap} layoutId={c.slug}>
                     <Image
                       layout="fill"
+                      alt={`${c.title} | Jorne Wellens`}
                       src={`https://wdev2.be/stephen21/eindwerk/uploads/${c.thumbnail}`}
                     />
                   </motion.figure>

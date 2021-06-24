@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -12,16 +14,19 @@ export const getStaticProps = async ({ params }) => {
     `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json?slug=${slug}`
   );
   const [category] = resp.data;
-  
-  if ( !category || !category.published ) {
+
+  if (!category || !category.published) {
     return {
       notFound: true,
     };
   }
 
+  const cases = category.photoCases.filter((c) => c.published);
+
   return {
     props: {
       category,
+      cases,
     },
     revalidate: 10, // 10 seconds TODO : Bump this up.
   };
@@ -31,28 +36,39 @@ export const getStaticPaths = async () => {
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/photo_categories.json`
   );
-  const categories = resp.data.filter(cat => cat.published);
-  const paths = categories.map(cat => ({
-    params: { slug : cat.slug }
-  }))
+  const categories = resp.data.filter((cat) => cat.published);
+  const paths = categories.map((cat) => ({
+    params: { slug: cat.slug },
+  }));
   return {
     paths,
-    fallback: 'blocking', 
+    fallback: "blocking",
   };
-}
+};
 
 const PhotoCategoryView = (props) => {
-  const { category, setLastPhotoPage } = props;
+  const { category, cases, setLastPhotoPage } = props;
   const router = useRouter();
-  setLastPhotoPage(router.asPath);
-  // TODO : filter on serverside
-  const cases = category.photoCases.filter((c) => c.published);
+  useEffect(() => {
+    setLastPhotoPage(router.asPath);
+  }, []);
 
   return (
     <>
+      <Head>
+        <title>{category.title} Jorne Wellens | fotografie</title>
+        <meta name="description" content={category.description} />
+        <link
+          rel="canonical"
+          href={`https://jw-front.vercel.app/${router.asPath}`}
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+      </Head>
       <motion.figure className={styles.hero} layoutId={category.slug}>
         <Image
           layout="fill"
+          alt={`${category.title} | Jorne Wellens`}
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${category.thumbnail}`}
         />
       </motion.figure>
@@ -68,9 +84,13 @@ const PhotoCategoryView = (props) => {
             <div key={c.slug} className={styles.content_box}>
               <Link href={`/photo/case/${c.slug}`} passHref>
                 <a>
-                  <motion.figure className={styles.image_wrap} layoutId={c.slug}>
+                  <motion.figure
+                    className={styles.image_wrap}
+                    layoutId={c.slug}
+                  >
                     <Image
                       layout="fill"
+                      alt={`${c.title} | Jorne Wellens`}
                       src={`https://wdev2.be/stephen21/eindwerk/uploads/${c.thumbnail}`}
                     />
                   </motion.figure>

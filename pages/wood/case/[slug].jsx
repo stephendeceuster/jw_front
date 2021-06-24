@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import axios from "axios";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -11,8 +13,8 @@ export const getStaticProps = async ({ params }) => {
     `https://wdev2.be/stephen21/eindwerk/api/wood_cases.json?slug=${slug}`
   );
   const [cas] = resp.data;
-  
-  if ( !cas || !cas.published ) {
+
+  if (!cas || !cas.published) {
     return {
       notFound: true,
     };
@@ -40,32 +42,47 @@ export const getStaticPaths = async () => {
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/wood_cases.json`
   );
-  const cases = resp.data.filter(cas => cas.published);
-  const paths = cases.map(cas => ({
-    params: { slug : cas.slug }
-  }))
+  const cases = resp.data.filter((cas) => cas.published);
+  const paths = cases.map((cas) => ({
+    params: { slug: cas.slug },
+  }));
   return {
     paths,
-    fallback: 'blocking',
-  }
-}
+    fallback: "blocking",
+  };
+};
 
-const WoodCaseView = ( props ) => {
+const WoodCaseView = (props) => {
   const { cas, images, setLastWoodPage } = props;
   const router = useRouter();
-  setLastWoodPage(router.asPath);
+  useEffect(() => {
+    setLastWoodPage(router.asPath);
+  }, [])
   return (
     <>
+      <Head>
+        <title>{cas.title} Jorne Wellens | houtbewerking</title>
+        <meta name="description" content={cas.description} />
+        <link
+          rel="canonical"
+          href={`https://jw-front.vercel.app/${router.asPath}`}
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+      </Head>
       <motion.figure className={styles.hero} layoutId={cas.slug}>
         <Image
           layout="fill"
+          alt={`${cas.title} | Jorne Wellens`}
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${cas.thumbnail}`}
         />
       </motion.figure>
       <BackButton />
       <div className={styles.content}>
         <h1>{cas.title}</h1>
-        {cas.description && <div className={styles.description}>{cas.description}</div>}
+        {cas.description && (
+          <div className={styles.description}>{cas.description}</div>
+        )}
         {images.length > 0 &&
           images
             .sort((a, b) => 0.5 - Math.random())
@@ -73,6 +90,7 @@ const WoodCaseView = ( props ) => {
               <div key={img} className={styles.content_box}>
                 <img
                   layout="fill"
+                  alt={`${cas.title} | Jorne Wellens`}
                   src={`https://wdev2.be/stephen21/eindwerk/uploads/${img}`}
                 />
               </div>

@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import axios from "axios";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -41,7 +43,6 @@ export const getStaticPaths = async () => {
   const resp = await axios.get(
     `https://wdev2.be/stephen21/eindwerk/api/photo_cases.json`
   );
-  console.log('resp', resp)
   const cases = resp.data.filter((cas) => cas.published);
   const paths = cases.map((cas) => ({
     params: { slug: cas.slug },
@@ -55,12 +56,25 @@ export const getStaticPaths = async () => {
 const PhotoCaseView = (props) => {
   const { cas, images, setLastPhotoPage } = props;
   const router = useRouter();
-  setLastPhotoPage(router.asPath);
+  useEffect(() => {
+    setLastPhotoPage(router.asPath);
+  }, []);
   return (
     <>
+      <Head>
+        <title>{cas.title} Jorne Wellens | fotografie</title>
+        <meta name="description" content={cas.description} />
+        <link
+          rel="canonical"
+          href={`https://jw-front.vercel.app/${router.asPath}`}
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+      </Head>
       <motion.figure className={styles.hero} layoutId={cas.slug}>
         <Image
           layout="fill"
+          alt={`${cas.title} | Jorne Wellens`}
           src={`https://wdev2.be/stephen21/eindwerk/uploads/${cas.thumbnail}`}
         />
       </motion.figure>
@@ -77,6 +91,7 @@ const PhotoCaseView = (props) => {
               <div key={img} className={styles.content_box}>
                 <img
                   layout="fill"
+                  alt={`${cas.title} | Jorne Wellens`}
                   src={`https://wdev2.be/stephen21/eindwerk/uploads/${img}`}
                 />
               </div>
