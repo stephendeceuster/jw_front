@@ -1,17 +1,16 @@
-import Link from "next/link";
 import Head from "next/head";
-import styles from "../styles/Splash.module.scss";
+import styles from "../styles/Content.module.scss";
 
-const Home = (props) => {
+const Privacy = () => {
   return (
     <>
       <Head>
-        <title>Jorne Wellens | fotografie & houtbewerking</title>
+        <title>privacy | Jorne Wellens | fotografie & houtbewerking</title>
         <meta
           name="description"
-          content="Dit de beschrijving van de homepagina"
+          content="Dit de beschrijving van de privacy policy"
         />
-        <link rel="canonical" href="https://jw-front.vercel.app/" />
+        <link rel="canonical" href="https://jw-front.vercel.app/privacy" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
 
@@ -46,24 +45,9 @@ const Home = (props) => {
         />
         <meta name="theme-color" content="#000000"></meta>
       </Head>
-      <div className={styles.splash_wrapper}>
-        <div className={styles.photo_splash}>
-          <Link href="/photo">
-            <a>
-              <h2>fotografie</h2>
-            </a>
-          </Link>
-        </div>
-        <div className={styles.wood_splash}>
-          <Link href="/wood">
-            <a>
-              <h2>houtbewerking</h2>
-            </a>
-          </Link>
-        </div>
-      </div>
+      <div className={styles.content}>Under Construction...</div>
     </>
   );
 };
 
-export default Home;
+export default Privacy;

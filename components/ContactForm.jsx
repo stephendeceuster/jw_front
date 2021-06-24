@@ -36,6 +36,8 @@ export const ContactForm = () => {
     resp.status === 200 ? setShowSuccess(true) : setShowError(true);
     // reset form to emptyState
     actions.resetForm();
+    // scroll to top so message is visible
+    window.scrollTo(0, 0);
   };
 
   return (
